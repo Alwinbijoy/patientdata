@@ -6,6 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 @Entity
 public class Patient {
 
@@ -13,11 +18,19 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String firstName;
-    private String lastName;    
+    @NotBlank
+    private String lastName;
+    @Min(0)
+    @Max(120) 
     private int age;
-    private String gender;  
+    @NotBlank
+    private String gender;
+    @Email
+    @NotBlank
     private String email;
+    @NotBlank
     private String phone;
 
     public Patient() {
