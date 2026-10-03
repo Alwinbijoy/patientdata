@@ -3,6 +3,8 @@ package com.example.patientdata.service;
 import org.springframework.stereotype.Service;
 import com.example.patientdata.repository.PatientRepository;
 import com.example.patientdata.entity.Patient;
+import com.example.patientdata.exception.PatientNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +21,8 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public Optional<Patient> getPatientById(Long id) {
-        return patientRepository.findById(id);
+    public Patient getPatientById(Long id) {
+        return patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
     }
 
     public Patient createPatient(Patient patient) {

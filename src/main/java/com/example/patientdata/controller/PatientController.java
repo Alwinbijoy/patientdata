@@ -30,9 +30,8 @@ public class PatientController {
     //Reading a single patient by ID
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable Long id) {
-        return patientService.getPatientById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Patient patient = patientService.getPatientById(id);
+        return ResponseEntity.ok(patient);
     }
 
     //CREATE
