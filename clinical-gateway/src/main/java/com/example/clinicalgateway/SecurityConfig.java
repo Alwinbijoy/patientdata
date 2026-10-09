@@ -1,6 +1,5 @@
 package com.example.clinicalgateway;
 
-import java.beans.BeanProperty;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -19,9 +18,11 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
                 .pathMatchers("/actuator/health").permitAll()
-                .pathMatchers("/clinical/**").permitAll()
+                .pathMatchers("/clinical/**").authenticated()
                 .anyExchange().denyAll()
                 )
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {})
+            )
                 .build();
     }
 
